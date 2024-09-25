@@ -417,3 +417,5 @@ _deps
 CMakeUserPresets.json
 CMakePresets.json
 CMakeLists.txt
+/.1
+/.vscode
