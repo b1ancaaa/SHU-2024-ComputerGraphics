@@ -58,25 +58,25 @@
      <rect>
       <x>80</x>
       <y>10</y>
-      <width>51</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>三角</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="Ellipse">
-    <property name="geometry">
-     <rect>
-      <x>260</x>
-      <y>10</y>
       <width>31</width>
       <height>21</height>
      </rect>
     </property>
     <property name="text">
-     <string>Ellipse</string>
+     <string>矩形</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Ellipse">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>10</y>
+      <width>41</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>椭圆</string>
     </property>
    </widget>
   </widget>
