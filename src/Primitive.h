@@ -20,6 +20,7 @@ class Primitive
         Line,
         Polygon,
         Circle,
+        Rect,
         Ellipse,
         Curve
     };
@@ -37,7 +38,7 @@ class Primitive
     static QVector<QPoint> drawLine(QVector<QPoint> args);    // 绘制直线
     static QVector<QPoint> drawRect(QVector<QPoint> args);    // 绘制矩形
     static QVector<QPoint> drawPolygon(QVector<QPoint> args); // 绘制多边形
-    // static QVector<QPoint> drawCircle(QVector<QPoint> args);	// 绘制圆形
+    static QVector<QPoint> drawCircle(QVector<QPoint> args);	// 绘制圆形
     static QVector<QPoint> drawEllipse(QVector<QPoint> args); // 绘制椭圆
     static QVector<QPoint> drawCurve(QVector<QPoint> args);   // 绘制曲线
     QVector<QPoint> translate(QPoint pos);                    // 平移

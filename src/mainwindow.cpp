@@ -1,13 +1,15 @@
 #include "mainwindow.h"
-
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent), ui(new Ui::MainWindow), state(Line), primitive(nullptr), pen(Qt::black, 1)
+    : QMainWindow(parent)
+    , ui(new Ui::MainWindow)
+    , state(Rectangle)
+    , primitive(nullptr)
+    , pen(Qt::black, 2)
 {
     ui->setupUi(this);
-    image = QImage(this->size(), QImage::Format_ARGB32);
-    image.fill(Qt::white);
+    image = QImage(this->size(), QImage::Format_RGBA64);
 }
 
 MainWindow::~MainWindow()
@@ -17,38 +19,44 @@ MainWindow::~MainWindow()
 
 void MainWindow::paintEvent(QPaintEvent *event)
 {
+
     Q_UNUSED(event);
     painter.begin(&image);
-
+    image.fill(Qt::white);
     foreach (Primitive *p, primitives)
     {
-        p->setPen(Qt::red);
+        p->setPen(Qt::red, -3);
         p->drawPrimitive(image);
     }
     painter.end();
-
-    // 更新 QLabel 的 pixmap
     ui->label->setPixmap(QPixmap::fromImage(image));
 }
 
 void MainWindow::mousePressEvent(QMouseEvent *event)
 {
     QPoint pos = event->pos();
-    pos.rx() -= 10;
-    pos.ry() -= 40;
+    pos.rx()-=10;
+    pos.ry()-=40;
     points.append(pos);
-    switch (state)
-    {
+    switch (state) {
     case Line:
-        primitive = new Primitive(pen, Primitive::Line, {pos, pos});
+        primitive = new Primitive(pen, Primitive::Line,{pos, pos});
         qDebug("setup a new prtmitive");
         primitives.append(primitive);
         break;
     case Circle:
-        primitive = new Primitive(pen, Primitive::Circle, {pos, QPoint(0, 0)});
+        primitive = new Primitive(pen, Primitive::Circle,{pos, pos});
         primitives.append(primitive);
         break;
+    case Rectangle:
+        primitive = new Primitive(pen, Primitive::Rect,{pos, pos});
+        qDebug("setup a new prtmitive");
+        primitives.append(primitive);
         break;
+    case Ellipse:
+        primitive = new Primitive(pen, Primitive::Ellipse,{pos, pos});
+        qDebug("setup a new prtmitive");
+        primitives.append(primitive);
     default:
         break;
     }
@@ -58,25 +66,20 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
 void MainWindow::mouseMoveEvent(QMouseEvent *event)
 {
     QPoint pos = event->pos();
-    pos.rx() -= 10;
-    pos.ry() -= 40;
-    QVector<QPoint> args;
-    switch (state)
-    {
+    pos.rx()-=10;
+    pos.ry()-=40;
+    switch (state) {
     case Line:
         primitive->setArgs({points[0], pos});
         break;
     case Circle:
-        if (qAbs(pos.x() - points[0].x()) < qAbs(pos.y() - points[0].y()))
-            if (pos.ry() > points[0].y())
-                pos.ry() = points[0].y() + qAbs(pos.rx() - points[0].x());
-            else
-                pos.ry() = points[0].y() - qAbs(pos.rx() - points[0].x());
-        else if (pos.rx() > points[0].x())
-            pos.rx() = points[0].x() + qAbs(pos.ry() - points[0].y());
-        else
-            pos.rx() = points[0].x() - qAbs(pos.ry() - points[0].y());
-        primitive->setArgs({(pos + points[0]) / 2, (pos - points[0]) / 2});
+        primitive->setArgs({points[0], pos});
+        break;
+    case Rectangle:
+        primitive->setArgs({points[0], pos});
+        break;
+    case Ellipse:
+        primitive->setArgs({points[0], pos});
         break;
     default:
         break;
@@ -87,25 +90,20 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event)
 void MainWindow::mouseReleaseEvent(QMouseEvent *event)
 {
     QPoint pos = event->pos();
-    pos.rx() -= 10;
-    pos.ry() -= 40;
-    QVector<QPoint> args;
-    switch (state)
-    {
+    pos.rx()-=10;
+    pos.ry()-=40;
+    switch (state) {
     case Line:
         primitive->setArgs({points[0], pos});
         break;
     case Circle:
-        if (qAbs(pos.x() - points[0].x()) < qAbs(pos.y() - points[0].y()))
-            if (pos.ry() > points[0].y())
-                pos.ry() = points[0].y() + qAbs(pos.rx() - points[0].x());
-            else
-                pos.ry() = points[0].y() - qAbs(pos.rx() - points[0].x());
-        else if (pos.rx() > points[0].x())
-            pos.rx() = points[0].x() + qAbs(pos.ry() - points[0].y());
-        else
-            pos.rx() = points[0].x() - qAbs(pos.ry() - points[0].y());
-        primitive->setArgs({(pos + points[0]) / 2, (pos - points[0]) / 2});
+        primitive->setArgs({points[0], pos});
+        break;
+    case Rectangle:
+        primitive->setArgs({points[0], pos});
+        break;
+    case Ellipse:
+        primitive->setArgs({points[0], pos});
         break;
     default:
         break;
@@ -115,20 +113,34 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *event)
     points.clear();
 }
 
+
 void MainWindow::on_Circle_clicked()
 {
-    state = Circle;
+    state=Circle;
     points.clear();
 }
 
 void MainWindow::on_Line_clicked()
 {
-    state = Line;
+    state=Line;
     points.clear();
 }
 
-void MainWindow::on_BzeierCurve_clicked()
-{
-    state = BeizerCurve;
+void MainWindow::on_Rectangle_clicked(){
+    state=Rectangle;
     points.clear();
 }
+
+
+void MainWindow::on_BzeierCurve_clicked()
+{
+    state=BeizerCurve;
+    points.clear();
+}
+
+void MainWindow::on_Ellipse_clicked()
+{
+    state=Ellipse;
+    points.clear();
+}
+

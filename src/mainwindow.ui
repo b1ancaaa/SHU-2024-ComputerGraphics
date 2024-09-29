@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
+    <width>1000</width>
     <height>600</height>
    </rect>
   </property>
@@ -18,13 +18,65 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>50</y>
-      <width>781</width>
-      <height>531</height>
+      <y>60</y>
+      <width>980</width>
+      <height>540</height>
      </rect>
     </property>
     <property name="text">
      <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Circle">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>10</y>
+      <width>21</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>圆</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Line">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>10</y>
+      <width>21</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>线</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Rectangle">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>10</y>
+      <width>51</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>三角</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Ellipse">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>10</y>
+      <width>31</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Ellipse</string>
     </property>
    </widget>
   </widget>
@@ -33,8 +85,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
-     <height>17</height>
+     <width>1000</width>
+     <height>24</height>
     </rect>
    </property>
   </widget>
